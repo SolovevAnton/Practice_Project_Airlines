@@ -1,24 +1,26 @@
 
 package com.solovev.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "Date",
-    "Codeshare",
-    "Arrival",
-    "Flight",
-    "Departure"
+        "Date",
+        "Codeshare",
+        "Arrival",
+        "Flight",
+        "Departure"
 })
 public class RegisteredFlight {
-
     @JsonProperty("Date")
-    private String date;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    private LocalDate date = LocalDate.now(); //why does not work without initialization?
     @JsonProperty("Codeshare")
     private boolean codeshare;
     @JsonProperty("Arrival")
@@ -30,20 +32,18 @@ public class RegisteredFlight {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public RegisteredFlight() {
     }
 
     /**
-     * 
      * @param date
      * @param flight
      * @param codeshare
      * @param arrival
      * @param departure
      */
-    public RegisteredFlight(String date, boolean codeshare, Arrival arrival, String flight, Departure departure) {
+    public RegisteredFlight(LocalDate date, boolean codeshare, Arrival arrival, String flight, Departure departure) {
         super();
         this.date = date;
         this.codeshare = codeshare;
@@ -52,15 +52,6 @@ public class RegisteredFlight {
         this.departure = departure;
     }
 
-    @JsonProperty("Date")
-    public String getDate() {
-        return date;
-    }
-
-    @JsonProperty("Date")
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     @JsonProperty("Codeshare")
     public boolean isCodeshare() {
@@ -102,6 +93,14 @@ public class RegisteredFlight {
         this.departure = departure;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,9 +126,10 @@ public class RegisteredFlight {
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "RegisteredFlight{" +
-                "date='" + date + '\'' +
+                "date=" + date +
                 ", codeshare=" + codeshare +
                 ", arrival=" + arrival +
                 ", flight='" + flight + '\'' +

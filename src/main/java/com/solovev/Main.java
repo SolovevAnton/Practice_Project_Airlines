@@ -1,6 +1,5 @@
 package com.solovev;
 
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.solovev.repository.BoardingPassRepository;
 import com.solovev.repository.FrequentFlyerRepository;
 
@@ -19,13 +18,13 @@ public class Main {
 //        generator.generate("FrequentFlyer","com.solovev.model");
 
         try {
-//            FrequentFlyerRepository rep = new FrequentFlyerRepository(new File(srcFileName));
-//            System.out.println(rep.getFrequentFlyer().getForumProfiles().get(0));
-//            System.out.println("exp: List<ForumProfile> , got: " + rep.search("Malaga"));
-//            System.out.println("exp: [] , got: " + rep.search(""));
-//            LocalDate dateToFind = LocalDate.parse("2017-12-31", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//            System.out.println("exp: List<ForumProfile> , got: " + rep.search(dateToFind));
-//            System.out.println("exp: [] , got: " + rep.search(LocalDate.now()));
+            FrequentFlyerRepository rep = new FrequentFlyerRepository(new File(srcFileName));
+            System.out.println(rep.getFrequentFlyer().getForumProfiles().get(0));
+            System.out.println("exp: List<ForumProfile> , got: " + rep.search("Malaga"));
+            System.out.println("exp: [] , got: " + rep.search(""));
+            LocalDate dateToFind = LocalDate.parse("2017-12-31", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            System.out.println("exp: List<ForumProfile> , got: " + rep.search(dateToFind));
+            System.out.println("exp: [] , got: " + rep.search(LocalDate.now()));
 
 
             BoardingPassRepository passes = new BoardingPassRepository(csvFileName);

@@ -26,13 +26,12 @@ public class Main {
 //            LocalDate dateToFind = LocalDate.parse("2017-12-31", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 //            System.out.println("exp: List<ForumProfile> , got: " + rep.search(dateToFind));
 //            System.out.println("exp: [] , got: " + rep.search(LocalDate.now()));
-          //  CsvSchema(CsvSchema.Column[] columns, boolean useHeader, boolean skipFirstDataRow, char columnSeparator, char quoteChar, int escapeChar, char[] lineSeparator)
-            CsvSchema schema = CsvSchema.emptySchema()
-                    .withColumnSeparator(';')
-                    .withHeader()
-                    .withSkipFirstDataRow(true);
-            System.out.println(schema);
-            BoardingPassRepository passes = new BoardingPassRepository(csvFileName,schema);
+
+
+            BoardingPassRepository passes = new BoardingPassRepository(csvFileName);
+            File fileToSave = new File("BoardingData.json");
+            passes.saveData(fileToSave);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,12 +1,14 @@
 
 package com.solovev.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class BoardingPass {
@@ -16,20 +18,26 @@ public class BoardingPass {
     private String passengerSecondName;
     @JsonProperty("PassengerLastName")
     private String passengerLastName;
+    @JsonProperty("PassengerSex")
+    private String passengerSex;
     @JsonProperty("PassengerBirthDate")
+    @JsonFormat(pattern = "MM/dd/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate passengerBirthDate;
+
     @JsonProperty("PassengerDocument")
-    private long passengerDocument;
+    private String passengerDocument;
     @JsonProperty("BookingCode")
     private String bookingCode;
     @JsonProperty("TicketNumber")
     private String ticketNumber;
     @JsonProperty("Baggage")
     private String baggage;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @JsonProperty("FlightDate")
     private LocalDate flightDate;
+    @JsonFormat(pattern = "HH:mm", shape = JsonFormat.Shape.STRING)
     @JsonProperty("FlightTime")
-    private LocalDateTime flightTime;
+    private LocalTime flightTime;
     @JsonProperty("FlightNumber")
     private String flightNumber;
     @JsonProperty("CodeShare")
@@ -38,10 +46,14 @@ public class BoardingPass {
     private String destination;
 
 
-    public BoardingPass(String passengerFirstName, String passengerSecondName, String passengerLastName, LocalDate passengerBirthDate, long passengerDocument, String bookingCode, String ticketNumber, String baggage, LocalDate flightDate, LocalDateTime flightTime, String flightNumber, String codeShare, String destination) {
+    public BoardingPass() {
+    }
+
+    public BoardingPass(String passengerFirstName, String passengerSecondName, String passengerLastName, String passengerSex, LocalDate passengerBirthDate, String passengerDocument, String bookingCode, String ticketNumber, String baggage, LocalDate flightDate, LocalTime flightTime, String flightNumber, String codeShare, String destination) {
         this.passengerFirstName = passengerFirstName;
         this.passengerSecondName = passengerSecondName;
         this.passengerLastName = passengerLastName;
+        this.passengerSex = passengerSex;
         this.passengerBirthDate = passengerBirthDate;
         this.passengerDocument = passengerDocument;
         this.bookingCode = bookingCode;
@@ -53,7 +65,6 @@ public class BoardingPass {
         this.codeShare = codeShare;
         this.destination = destination;
     }
-
 
     public String getPassengerFirstName() {
         return passengerFirstName;
@@ -87,11 +98,11 @@ public class BoardingPass {
         this.passengerBirthDate = passengerBirthDate;
     }
 
-    public long getPassengerDocument() {
+    public String getPassengerDocument() {
         return passengerDocument;
     }
 
-    public void setPassengerDocument(long passengerDocument) {
+    public void setPassengerDocument(String passengerDocument) {
         this.passengerDocument = passengerDocument;
     }
 
@@ -127,11 +138,11 @@ public class BoardingPass {
         this.flightDate = flightDate;
     }
 
-    public LocalDateTime getFlightTime() {
+    public LocalTime getFlightTime() {
         return flightTime;
     }
 
-    public void setFlightTime(LocalDateTime flightTime) {
+    public void setFlightTime(LocalTime flightTime) {
         this.flightTime = flightTime;
     }
 
@@ -159,6 +170,14 @@ public class BoardingPass {
         this.destination = destination;
     }
 
+    public String getPassengerSex() {
+        return passengerSex;
+    }
+
+    public void setPassengerSex(String passengerSex) {
+        this.passengerSex = passengerSex;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -166,14 +185,16 @@ public class BoardingPass {
 
         BoardingPass that = (BoardingPass) o;
 
-        if (passengerDocument != that.passengerDocument) return false;
         if (!Objects.equals(passengerFirstName, that.passengerFirstName))
             return false;
         if (!Objects.equals(passengerSecondName, that.passengerSecondName))
             return false;
         if (!Objects.equals(passengerLastName, that.passengerLastName))
             return false;
+        if (!Objects.equals(passengerSex, that.passengerSex)) return false;
         if (!Objects.equals(passengerBirthDate, that.passengerBirthDate))
+            return false;
+        if (!Objects.equals(passengerDocument, that.passengerDocument))
             return false;
         if (!Objects.equals(bookingCode, that.bookingCode)) return false;
         if (!Objects.equals(ticketNumber, that.ticketNumber)) return false;
@@ -190,8 +211,9 @@ public class BoardingPass {
         int result = passengerFirstName != null ? passengerFirstName.hashCode() : 0;
         result = 31 * result + (passengerSecondName != null ? passengerSecondName.hashCode() : 0);
         result = 31 * result + (passengerLastName != null ? passengerLastName.hashCode() : 0);
+        result = 31 * result + (passengerSex != null ? passengerSex.hashCode() : 0);
         result = 31 * result + (passengerBirthDate != null ? passengerBirthDate.hashCode() : 0);
-        result = 31 * result + (int) (passengerDocument ^ (passengerDocument >>> 32));
+        result = 31 * result + (passengerDocument != null ? passengerDocument.hashCode() : 0);
         result = 31 * result + (bookingCode != null ? bookingCode.hashCode() : 0);
         result = 31 * result + (ticketNumber != null ? ticketNumber.hashCode() : 0);
         result = 31 * result + (baggage != null ? baggage.hashCode() : 0);
@@ -209,6 +231,7 @@ public class BoardingPass {
                 "passengerFirstName='" + passengerFirstName + '\'' +
                 ", passengerSecondName='" + passengerSecondName + '\'' +
                 ", passengerLastName='" + passengerLastName + '\'' +
+                ", passengerSex='" + passengerSex + '\'' +
                 ", passengerBirthDate=" + passengerBirthDate +
                 ", passengerDocument=" + passengerDocument +
                 ", bookingCode='" + bookingCode + '\'' +

@@ -14,7 +14,7 @@ import java.util.Objects;
 public class TravelDocument {
 
     @JsonProperty("Passports")
-    private Object passports;
+    private String passports;
 
     /**
      * No args constructor for use in serialization
@@ -27,18 +27,18 @@ public class TravelDocument {
      * 
      * @param passports
      */
-    public TravelDocument(Object passports) {
+    public TravelDocument(String passports) {
         super();
         this.passports = passports;
     }
 
     @JsonProperty("Passports")
-    public Object getPassports() {
+    public String getPassports() {
         return passports;
     }
 
     @JsonProperty("Passports")
-    public void setPassports(Object passports) {
+    public void setPassports(String passports) {
         this.passports = passports;
     }
 

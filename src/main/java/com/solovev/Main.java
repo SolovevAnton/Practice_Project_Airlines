@@ -1,5 +1,7 @@
 package com.solovev;
 
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.solovev.repository.BoardingPassRepository;
 import com.solovev.repository.FrequentFlyerRepository;
 
 import java.io.File;
@@ -11,18 +13,26 @@ public class Main {
 
     public static void main(String[] args) {
         String srcFileName = "FrequentFlyerForum-Profiles.json";
+        File csvFileName = new File("BoardingData.csv");
 //        String directoryName = "src/main/java/";
 //        Json2PojoGenerator generator = new Json2PojoGenerator(srcFileName,directoryName);
 //        generator.generate("FrequentFlyer","com.solovev.model");
 
         try {
-            FrequentFlyerRepository rep = new FrequentFlyerRepository(new File(srcFileName));
-            System.out.println(rep.getFrequentFlyer().getForumProfiles().get(0));
-            System.out.println("exp: List<ForumProfile> , got: " + rep.search("Malaga"));
-            System.out.println("exp: [] , got: " + rep.search(""));
-            LocalDate dateToFind = LocalDate.parse("2017-12-31", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            System.out.println("exp: List<ForumProfile> , got: " + rep.search(dateToFind));
-            System.out.println("exp: [] , got: " + rep.search(LocalDate.now()));
+//            FrequentFlyerRepository rep = new FrequentFlyerRepository(new File(srcFileName));
+//            System.out.println(rep.getFrequentFlyer().getForumProfiles().get(0));
+//            System.out.println("exp: List<ForumProfile> , got: " + rep.search("Malaga"));
+//            System.out.println("exp: [] , got: " + rep.search(""));
+//            LocalDate dateToFind = LocalDate.parse("2017-12-31", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//            System.out.println("exp: List<ForumProfile> , got: " + rep.search(dateToFind));
+//            System.out.println("exp: [] , got: " + rep.search(LocalDate.now()));
+          //  CsvSchema(CsvSchema.Column[] columns, boolean useHeader, boolean skipFirstDataRow, char columnSeparator, char quoteChar, int escapeChar, char[] lineSeparator)
+            CsvSchema schema = CsvSchema.emptySchema()
+                    .withColumnSeparator(';')
+                    .withHeader()
+                    .withSkipFirstDataRow(true);
+            System.out.println(schema);
+            BoardingPassRepository passes = new BoardingPassRepository(csvFileName,schema);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

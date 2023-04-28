@@ -20,7 +20,7 @@ import java.util.Objects;
 public class RegisteredFlight {
     @JsonProperty("Date")
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
-    private LocalDate date = LocalDate.now(); //why does not work without initialization?
+    private LocalDate date;
     @JsonProperty("Codeshare")
     private boolean codeshare;
     @JsonProperty("Arrival")

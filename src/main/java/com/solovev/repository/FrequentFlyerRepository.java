@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class FrequentFlyerRepository {
     private FrequentFlyer frequentFlyer;
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     {
         //initialisation for working with date
